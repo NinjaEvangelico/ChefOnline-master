@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Publicação{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Editar Publicação</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Campo para o título -->
+        <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" class="form-control" value="{{ publicacao.titulo }}" required>
+        </div>
+
+        <!-- Campo para a descrição -->
+        <div class="form-group">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" name="descricao" class="form-control" rows="3"
+                required>{{ publicacao.descricao }}</textarea>
+        </div>
+
+        <!-- Campo para a foto -->
+        <div class="form-group">
+            <label for="foto">Foto</label>
+            <input type="file" id="foto" name="foto" class="form-control-file">
+            {% if publicacao.foto %}
+            <img src="{{ publicacao.foto.url }}" alt="Imagem atual" class="img-fluid mt-2" style="max-width: 100px;">
+            {% endif %}
+        </div>
+
+        <!-- Botão de salvar alterações -->
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+
+    <!-- Botão para cancelar -->
+    <a href="{% url 'detalhes_publicacao' publicacao.pk %}" class="btn btn-secondary mt-3">Cancelar</a>
+</div>
+{% endblock %}

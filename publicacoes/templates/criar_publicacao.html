@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Criar Publicação{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Criar Nova Publicação</h2>
+    <form action="{% url 'criar_publicacao' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" required>
+        </div>
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="foto" class="form-label">Foto</label>
+            <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar Publicação</button>
+    </form>
+</div>
+{% endblock %}

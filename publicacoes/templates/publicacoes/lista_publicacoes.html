@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Feed de Receitas{% endblock %}
+<a href="{% url 'criar_publicacao' %}" class="btn btn-primary btn-lg" role="button">
+    <i class="bi bi-plus-circle"></i> Criar Publicação
+</a>
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        {% for publicacao in publicacoes %}
+        <div class="col-md-8 mb-4">
+            <div class="card mx-auto" style="border-radius: 10px; overflow: hidden;">
+                <!-- Imagem com link -->
+                <a href="{% url 'detalhes_publicacao' publicacao.pk %}">
+                    <img src="{{ publicacao.foto.url }}" alt="Imagem da publicação"
+                        style="width: 100%; height: auto; max-height: 200px; object-fit: cover;">
+                </a>
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ publicacao.titulo }}</h5>
+                    <p class="card-text">{{ publicacao.descricao }}</p>
+                    <p class="card-text"><small class="text-muted">Por {{ publicacao.autor.username }} em {{
+                            publicacao.data_criacao }}</small></p>
+                    <p class="card-text"><small>Total de curtidas: {{ publicacao.likes }}</small></p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Nenhuma publicação encontrada.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

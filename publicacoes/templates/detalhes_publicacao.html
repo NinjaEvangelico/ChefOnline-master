@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <img src="{{ publicacao.foto.url }}" alt="Foto da publicação" class="card-img">
+
+        <div class="card-body">
+            <h1>{{ publicacao.titulo }}</h1>
+            <p class="description"><strong>Descrição:</strong> {{ publicacao.descricao }}</p>
+            <p><strong>Autor:</strong> {{ publicacao.autor.username }}</p>
+            <p><strong>Data da publicação:</strong> {{ publicacao.data_criacao }}</p>
+
+            {% if publicacao.autor == request.user %}
+            <div class="buttons">
+                <a href="{% url 'editar_publicacao' publicacao.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'excluir_publicacao' publicacao.pk %}" class="btn btn-danger"
+                    onclick="return confirm('Tem certeza que deseja deletar?');">Excluir</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
